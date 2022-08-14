@@ -29,15 +29,24 @@ function checkAnswer(event)
         if ((operand1 + operand2) === Number(response.value))
         {
             result.textContent = "Correct!";
+            result.style.color = "green"
             score.textContent = Number(score.textContent) + 1
             makequestion();
+            setTimeout(clearResults, 1000);
         }
         else
         {
-            result.textContent = "Incorrect!";
+            response.value = "";
+            result.style.color = "red"
+            result.textContent = "Incorrect. Try again!";
         }
         
     }
+}
+
+function clearResults()
+{
+    result.textContent = "";
 }
 
 main();
