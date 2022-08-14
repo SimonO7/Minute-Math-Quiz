@@ -16,15 +16,25 @@
 }
 
 
-.game_area
+.game_area,
+.result
 {
     display: flex;
     justify-content: center;
     text-align: center;
-    font-size: 200px;
     font-family: 'Caveat', cursive;
     flex-wrap: wrap ;
     padding: 20px;
+}
+
+.game_area
+{
+    font-size: 200px;
+}
+
+.result
+{
+    font-size: 90px;
 }
 
 .response 
