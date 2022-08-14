@@ -49,7 +49,8 @@
     margin-left: 30px;
 }
 
-/* Shake element code: https://www.w3schools.com/howto/howto_css_shake_image.asp*/
+/* Shake element code
+Source: https://www.w3schools.com/howto/howto_css_shake_image.asp*/
 .shake_element
 {
     animation: shake 0.50s;
