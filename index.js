@@ -17,6 +17,7 @@ function main()
         response.classList.remove("shake_element");
     });
     makequestion();
+    countdown(2);
 }
 
 // Generate a random question
@@ -62,6 +63,35 @@ function checkAnswer(event)
         }
         
     }
+}
+
+// Countdown timer
+// Source: https://gist.github.com/adhithyan15/4350689
+function countdown(minutes) 
+{
+    let seconds = 60;
+    let mins = minutes
+    function tick() {
+        let counter = document.querySelector(".timer_display");
+        let current_minutes = mins-1
+        seconds--;
+        counter.innerHTML = current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+        if (seconds > 0) 
+        {
+            setTimeout(tick, 1000);
+        } 
+        else 
+        {
+            setTimeout(function()
+            {
+                if (mins > 1)
+                {
+                    countdown(mins-1);
+                }
+            }, 1000);
+        }
+    }
+    tick();
 }
 
 main();
