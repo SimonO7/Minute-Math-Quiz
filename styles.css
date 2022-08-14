@@ -1,16 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 
-body
+.body
 {
     background-color: rgb(161, 159, 159);
 }
 
-.main 
+.header_bar
+{
+    display: flex;
+    justify-content: space-between;
+    font-size: 90px;
+    font-family: 'Caveat', cursive;
+    margin-bottom: 100px;
+    padding: 0px 100px;
+}
+
+
+.game_area
 {
     display: flex;
     justify-content: center;
     text-align: center;
-    font-size: 150px;
+    font-size: 200px;
     font-family: 'Caveat', cursive;
     flex-wrap: wrap ;
     padding: 20px;
@@ -18,9 +29,10 @@ body
 
 .response 
 {
+    align-self: center;
     height: 200px;
-    width: 320px;
-    font-size: 140px;
+    width: 400px;
+    font-size: 200px;
     font-family: 'Caveat', cursive;
     border: 3px solid black;
     outline: 0;
