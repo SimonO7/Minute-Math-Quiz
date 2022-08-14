@@ -15,7 +15,6 @@
     padding: 0px 100px;
 }
 
-
 .game_area,
 .result
 {
@@ -48,10 +47,4 @@
     outline: 0;
     background-color: rgb(161, 159, 159);
     margin-left: 30px;
-}
-
-.response:focus 
-{
-    border: 3px solid black;
-    outline: 0;
 }
