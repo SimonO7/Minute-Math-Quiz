@@ -1,4 +1,4 @@
-// Javascript file for Hot Pencils
+// Javascript file for Minute Math Quiz
 
 // Define the global variables and select the fields that will need to be accessed by functions
 let operand1 = 0;
@@ -13,13 +13,16 @@ const result = document.querySelector(".result");
 function main()
 {
     document.addEventListener("keydown", checkAnswer);
+    response.addEventListener("animationend", (e) => {
+        response.classList.remove("shake_element");
+    });
     makequestion();
 }
 
 // Generate a random question
 function makequestion()
 {
-    operand1 = Math.floor(Math.random()*99)+1;
+    operand1 = Math.floor(Math.random()*9)+1;
     operand2 = Math.floor(Math.random()*9)+1;
     question.innerHTML = String(operand1) + " + " + String(operand2) + " = ";
     response.value = "";
@@ -33,28 +36,32 @@ function checkAnswer(event)
         // When the correct answer is entered
         if ((operand1 + operand2) === Number(response.value))
         {
+            // Tell user the answer is correct, and increment score
+            response.style.border = "3px solid green";
             result.textContent = "Correct!";
             result.style.color = "green"
             score.textContent = Number(score.textContent) + 1
-            makequestion();
-            setTimeout(clearResults, 1000);
+
+            // After 300 ms, clear the result message and generate next question
+            setTimeout(() => {
+                response.style.border = "3px solid black";
+                makequestion();
+                result.textContent = "";
+            }, 300);
         }
 
         // When an incorrect answer is entered
         else
         {
+            // Tell user it's not correct by shaking the text box and clearing it, and showing result message
             response.value = "";
-            result.style.color = "red"
+            response.classList.add("shake_element");
+            response.style.border = "3px solid red";
+            result.style.color = "red";
             result.textContent = "Incorrect. Try again!";
         }
+        
     }
 }
-
-// Clear the results message
-function clearResults()
-{
-    result.textContent = "";
-}
-
 
 main();
