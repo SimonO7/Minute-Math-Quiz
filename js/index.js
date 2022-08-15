@@ -3,14 +3,17 @@
 // Define the global variables and select the fields that will need to be accessed by functions
 let operand1 = 0;
 let operand2 = 0;
+const TIME_SECONDS = 60;
 
 const response = document.querySelector(".response");
 const score = document.querySelector(".score_display");
 const question = document.querySelector(".question");
 const result = document.querySelector(".result");
+const game_area = document.querySelector(".game_area");
 
 const correct_sound = new Audio("sounds/correct.mp3");
 const wrong_sound = new Audio("sounds/wrong.mp3");
+const alarm_sound = new Audio("sounds/alarm.mp3");
 
 // Main function to load on page load
 function main()
@@ -20,7 +23,8 @@ function main()
         response.classList.remove("shake_element");
     });
     makequestion();
-    countdown(1);
+    countdown(TIME_SECONDS);
+    setTimeout(game_over_screen, TIME_SECONDS*1000)
 }
 
 // Generate a random question
@@ -71,10 +75,10 @@ function checkAnswer(event)
 
 // Countdown timer
 // Source: https://gist.github.com/adhithyan15/4350689
-function countdown(minutes) 
+function countdown(time) 
 {
     let seconds = 60;
-    let mins = minutes
+    let mins = time / 60;
     function tick() {
         let counter = document.querySelector(".timer_display");
         let current_minutes = mins-1
@@ -103,6 +107,16 @@ function play_sound(sound)
 {
     sound.currentTime = 0;
     sound.play();
+}
+
+// Display game over screen
+function game_over_screen()
+{
+    document.removeEventListener("keydown", checkAnswer);
+    play_sound(alarm_sound);
+    game_area.innerHTML = "<div>GAME OVER!</div>";
+    result.style.color = "green";
+    result.innerHTML = "Your score is: " + String(score.textContent);
 }
 
 main();
