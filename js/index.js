@@ -8,10 +8,13 @@ const TIME_SECONDS = 60;
 
 // Fields for use by the functions
 const score_display = document.querySelector(".score_display");
+const timer_display = document.querySelector(".timer_display");
 const game_area = document.querySelector(".game_area");
+const menu = document.querySelector(".menu");
 const question = document.querySelector(".question");
 const response = document.querySelector(".response");
 const result = document.querySelector(".result");
+const play_again_btn = document.querySelector("#play_again");
 
 // Sound effects
 const correct_sound = new Audio("sounds/correct.mp3");
@@ -21,16 +24,32 @@ const alarm_sound = new Audio("sounds/alarm.mp3");
 // Main function to load on page load
 function main()
 {
+    // Add event listeners to elements
     document.querySelector("#start").addEventListener("click", start_game);
+    play_again_btn.addEventListener("click", load_menu);
+    load_menu();
+}
+
+// Load the main menu
+function load_menu()
+{
+    game_area.setAttribute("hidden", "");
+    result.setAttribute("hidden", "");
+    play_again_btn.setAttribute("hidden", "");
+    menu.removeAttribute("hidden");
+
+    // Reset the elements to its default state
+    result.innerHTML = "";
+    score = 0;
+    score_display.innerHTML = String(score);
+    response.style.border = "3px solid black";
+    timer_display.innerHTML = "1:00";
+
 }
 
 // Set up the game after player presses start
 function start_game()
 {
-    // Hide the menu and show the game area
-    game_area.removeAttribute("hidden");
-    document.querySelector(".menu").setAttribute("hidden", "");
-
     // Listen for enter key
     document.addEventListener("keydown", check_answer);
 
@@ -42,7 +61,15 @@ function start_game()
     });
 
     // Set up the game area
+    game_area.removeAttribute("hidden");
+    result.removeAttribute("hidden");
+    response.removeAttribute("hidden");
+    menu.setAttribute("hidden", "");
+
+    // Generate a new question
     make_question();
+
+    // Set the timer for the game over screen to appear
     setTimeout(game_over_screen, TIME_SECONDS*1000);
 
     // Start the countdown 500ms after hitting start, to let user get aware the game has started
@@ -75,7 +102,7 @@ function check_answer(event)
             result.innerHTML = "Correct!";
             result.style.color = "green"
             score++;
-            score_display.innerHTML = score;
+            score_display.innerHTML = String(score);
 
             // After 300 ms, clear the result message and generate next question
             setTimeout(() => {
@@ -147,9 +174,11 @@ function game_over_screen()
     play_sound(alarm_sound);
 
     // Display final score
-    game_area.innerHTML = "<div>GAME OVER!</div>";
+    question.innerHTML = "<div>GAME OVER!</div>";
+    response.setAttribute("hidden", "");
     result.style.color = "green";
     result.innerHTML = "Your score is: " + String(score);
+    play_again_btn.removeAttribute("hidden");
 }
 
 main();
