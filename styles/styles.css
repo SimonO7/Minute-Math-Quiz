@@ -19,7 +19,8 @@
 }
 
 .game_area,
-.result
+.result,
+.menu
 {
     display: flex;
     justify-content: center;
@@ -34,7 +35,8 @@
     font-size: 200px;
 }
 
-.result
+.result,
+.menu
 {
     font-size: 90px;
 }
@@ -54,7 +56,7 @@
 
 /* 
 Shake element
-Source: https://www.w3schools.com/howto/howto_css_shake_image.asp
+https://www.w3schools.com/howto/howto_css_shake_image.asp
 */
 .shake_element
 {
