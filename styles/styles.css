@@ -19,8 +19,7 @@
 }
 
 .game_area,
-.result,
-.menu
+.result
 {
     display: flex;
     justify-content: center;
@@ -35,8 +34,7 @@
     font-size: 200px;
 }
 
-.result,
-.menu
+.result
 {
     font-size: 90px;
 }
@@ -52,6 +50,40 @@
     outline: 0;
     background-color: rgb(161, 159, 159);
     margin-left: 30px;
+}
+
+.menu
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button
+{
+    width: 400px;
+    height: 70px;
+}
+
+.options,
+.subselections
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.options
+{
+    margin: 50px 0px;
+}
+
+.selections
+{
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
 }
 
 /* 
