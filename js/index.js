@@ -5,6 +5,7 @@ let operand1 = 0;
 let operand2 = 0;
 let score = 0;
 const TIME_SECONDS = 60;
+const COUNT_IN_SECONDS = 3;
 
 // Fields for use by the functions
 const score_display = document.querySelector(".score_display");
@@ -25,9 +26,32 @@ const alarm_sound = new Audio("sounds/alarm.mp3");
 function main()
 {
     // Add event listeners to elements
-    document.querySelector("#start").addEventListener("click", start_game);
+    document.querySelector("#start").addEventListener("click", function()
+    {
+        question.innerHTML = "Ready?";
+        count_in(COUNT_IN_SECONDS);
+        setTimeout(start_game, (COUNT_IN_SECONDS+1)*1000);
+    });
     play_again_btn.addEventListener("click", load_menu);
     load_menu();
+}
+
+// Countdown to game start after user clicks start. Default is 3 seconds.
+function count_in(seconds=3)
+{
+    game_area.removeAttribute("hidden");
+    menu.setAttribute("hidden", "");
+
+    let num = seconds
+    let countinstart = setInterval(() => {
+        question.innerHTML = String(num);
+        num--;
+    }, 1000);
+
+    // Cancel the count in when done
+    setTimeout(() => {
+        clearTimeout(countinstart);
+    }, seconds*1000);
 }
 
 // Load the main menu
@@ -61,10 +85,10 @@ function start_game()
     });
 
     // Set up the game area
-    game_area.removeAttribute("hidden");
+    // game_area.removeAttribute("hidden");
     result.removeAttribute("hidden");
     response.removeAttribute("hidden");
-    menu.setAttribute("hidden", "");
+    // menu.setAttribute("hidden", "");
 
     // Generate a new question
     make_question();
@@ -107,8 +131,8 @@ function check_answer(event)
             // After 300 ms, clear the result message and generate next question
             setTimeout(() => {
                 response.style.border = "3px solid black";
-                make_question();
                 result.innerHTML = "";
+                make_question();
             }, 300);
         }
 
@@ -174,7 +198,7 @@ function game_over_screen()
     play_sound(alarm_sound);
 
     // Display final score
-    question.innerHTML = "<div>GAME OVER!</div>";
+    question.innerHTML = "GAME OVER!";
     response.setAttribute("hidden", "");
     result.style.color = "green";
     result.innerHTML = "Your score is: " + String(score);
