@@ -29,6 +29,7 @@ function main()
     // Add event listeners to elements
     document.querySelector("#start").addEventListener("click", function()
     {
+        question.removeAttribute("hidden");
         question.innerHTML = "Ready?";
         count_in(COUNT_IN_SECONDS);
         setTimeout(start_game, (COUNT_IN_SECONDS+1)*1000);
