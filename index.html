@@ -31,22 +31,40 @@
 
     <div class="menu">
         <h1>Minute Math Quiz</h1>
-        <h3>Answer as many math questions as you can in 1 minute</h3>
-        <h4>(Press Enter key after entering your answer)</h4>
+        <h3>How many math questions can you answer in 1 minute?</h3>
+        <h5>How to play: Enter the answer into the box and press Enter to submit</h5>
         <div class="options">
-            <h1>Choose your options</h1>
+            <h1>Choose your game options</h1>
             <div class="selections">
-                <div class="subselections">
+                <div class="subselections form-check form-switch">
                     <h3>Operations</h3>
-                    <p>A</p>
-                    <p>B</p>
-                    <p>C</p>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="addition" checked>
+                        <label class="form-check-label" for="addition">Addition</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="subtraction" checked>
+                        <label class="form-check-label" for="subtraction">Subtraction</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="multiplication" checked>
+                        <label class="form-check-label" for="multiplication">Multiplication</label>
+                    </div>
                 </div>
-                <div class="subselections">
+                <div class="subselections form-check">
                     <h3>Level</h3>
-                    <p>A</p>
-                    <p>B</p>
-                    <p>C</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="level" id="easy" value="easy" checked>
+                        <label class="form-check-label" for="easy">Easy</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="level" id="medium" value="medium">
+                        <label class="form-check-label" for="medium">Medium</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="level" id="hard" value="hard">
+                        <label class="form-check-label" for="hard">Hard</label>
+                    </div>
                 </div>
             </div>
         </div>
