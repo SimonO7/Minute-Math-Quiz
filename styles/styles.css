@@ -1,11 +1,12 @@
 /*CSS Styles for Minute Math Quiz*/
 
 /*Import fonts from Google Fonts*/
-@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalam&display=swap');
 
 .body
 {
     background-color: rgb(161, 159, 159);
+    font-family: 'Kalam', cursive;
 }
 
 .header_bar
@@ -13,7 +14,6 @@
     display: flex;
     justify-content: space-between;
     font-size: 90px;
-    font-family: 'Caveat', cursive;
     margin-bottom: 100px;
     padding: 0px 100px;
 }
@@ -24,7 +24,6 @@
     display: flex;
     justify-content: center;
     text-align: center;
-    font-family: 'Caveat', cursive;
     flex-wrap: wrap ;
     padding: 20px;
 }
@@ -42,14 +41,16 @@
 .response 
 {
     align-self: center;
-    height: 200px;
-    width: 400px;
+    height: 250px;
+    width: 450px;
+    padding-top: 35px;
+    padding-left: 10px;
     font-size: 200px;
-    font-family: 'Caveat', cursive;
     border: 3px solid black;
     outline: 0;
     background-color: rgb(161, 159, 159);
     margin-left: 30px;
+    align-self: center;
 }
 
 .menu
