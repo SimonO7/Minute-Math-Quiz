@@ -16,6 +16,7 @@ const question = document.querySelector(".question");
 const response = document.querySelector(".response");
 const result = document.querySelector(".result");
 const play_again_btn = document.querySelector("#play_again");
+const result_title = document.querySelector(".result_text");
 
 // Sound effects
 const correct_sound = new Audio("sounds/correct.mp3");
@@ -60,6 +61,7 @@ function load_menu()
     game_area.setAttribute("hidden", "");
     result.setAttribute("hidden", "");
     play_again_btn.setAttribute("hidden", "");
+    result_title.setAttribute("hidden", "");
     menu.removeAttribute("hidden");
 
     // Reset the elements to its default state
@@ -198,7 +200,8 @@ function game_over_screen()
     play_sound(alarm_sound);
 
     // Display final score
-    question.innerHTML = "GAME OVER!";
+    result_title.removeAttribute("hidden");
+    question.setAttribute("hidden", "");
     response.setAttribute("hidden", "");
     result.style.color = "green";
     result.innerHTML = "Your score is: " + String(score);
