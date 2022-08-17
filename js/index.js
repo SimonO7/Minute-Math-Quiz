@@ -6,6 +6,7 @@ let operand2 = 0;
 let score = 0;
 const TIME_SECONDS = 60;
 const COUNT_IN_SECONDS = 3;
+let operations = new Array;
 
 // Fields for use by the functions
 const score_display = document.querySelector(".score_display");
@@ -26,34 +27,8 @@ const alarm_sound = new Audio("sounds/alarm.mp3");
 // Main function to load on page load
 function main()
 {
-    // Add event listeners to elements
-    document.querySelector("#start").addEventListener("click", function()
-    {
-        question.removeAttribute("hidden");
-        question.innerHTML = "Ready?";
-        count_in(COUNT_IN_SECONDS);
-        setTimeout(start_game, (COUNT_IN_SECONDS+1)*1000);
-    });
-    play_again_btn.addEventListener("click", load_menu);
+    add_listeners();
     load_menu();
-}
-
-// Countdown to game start after user clicks start. Default is 3 seconds.
-function count_in(seconds=3)
-{
-    game_area.removeAttribute("hidden");
-    menu.setAttribute("hidden", "");
-
-    let num = seconds
-    let countinstart = setInterval(() => {
-        question.innerHTML = String(num);
-        num--;
-    }, 1000);
-
-    // Cancel the count in when done
-    setTimeout(() => {
-        clearTimeout(countinstart);
-    }, seconds*1000);
 }
 
 // Load the main menu
@@ -73,25 +48,29 @@ function load_menu()
     timer_display.innerHTML = "1:00";
 
 }
+// Countdown to game start after user clicks start. Default is 3 seconds.
+function count_in(seconds=3)
+{
+    game_area.removeAttribute("hidden");
+    menu.setAttribute("hidden", "");
+
+    let num = seconds
+    let countinstart = setInterval(() => {
+        question.innerHTML = String(num);
+        num--;
+    }, 1000);
+
+    // Cancel the count in when done
+    setTimeout(() => {
+        clearTimeout(countinstart);
+    }, seconds*1000);
+}
 
 // Set up the game after player presses start
 function start_game()
 {
     // Listen for enter key
     document.addEventListener("keydown", check_answer);
-
-    // Add listener to remove the shake class from the response field after each shake, 
-    // so it can be applied again on the next answer
-    // https://teamtreehouse.com/community/shake-effect-with-javascript-only
-    response.addEventListener("animationend", (e) => {
-        response.classList.remove("shake_element");
-    });
-
-    // Set up the game area
-    // game_area.removeAttribute("hidden");
-    result.removeAttribute("hidden");
-    response.removeAttribute("hidden");
-    // menu.setAttribute("hidden", "");
 
     // Generate a new question
     make_question();
@@ -101,6 +80,10 @@ function start_game()
 
     // Start the countdown 500ms after hitting start, to let user get aware the game has started
     countdown(TIME_SECONDS, 500);
+
+    // Set up the game area
+    result.removeAttribute("hidden");
+    response.removeAttribute("hidden");
 
     // Focus the cursor on the input field
     response.focus();
@@ -207,6 +190,55 @@ function game_over_screen()
     result.style.color = "green";
     result.innerHTML = "Your score is: " + String(score);
     play_again_btn.removeAttribute("hidden");
+}
+
+// Add event listeners to the menu buttons
+function add_listeners()
+{
+    // When start button is clcked
+    document.querySelector("#start").addEventListener("click", load_game);
+
+    // Event listener for play again button
+    play_again_btn.addEventListener("click", load_menu);
+
+    // Add listener to remove the shake class from the response field after each shake, 
+    // so it can be applied again on the next answer
+    // https://teamtreehouse.com/community/shake-effect-with-javascript-only
+    response.addEventListener("animationend", (e) => {
+        response.classList.remove("shake_element");
+    });
+}
+
+// Get the operations the user has selected, and returns it in an array
+function get_operations()
+{
+    const temp = new Array();
+    const operations_selected = document.querySelectorAll("input[type=checkbox]");
+    for (let i = 0; i < operations_selected.length; i++)
+    {
+        if (operations_selected[i].checked)
+        {
+            temp.push(operations_selected[i].id);
+        }
+    }
+
+    return temp;
+}
+
+// Function to load game. To run when the Start button is pressed
+function load_game()
+{
+    // Check which operations are enabled
+    operations = get_operations();
+    if (operations.length == 0)
+    {
+        alert("You must select at least one operation!")
+        return;
+    }
+    question.removeAttribute("hidden");
+    question.innerHTML = "Ready?";
+    count_in(COUNT_IN_SECONDS);
+    setTimeout(start_game, (COUNT_IN_SECONDS+1)*1000);
 }
 
 main();
