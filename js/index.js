@@ -3,9 +3,10 @@
 // Global variables
 let operand1 = 0;
 let operand2 = 0;
+let operation;
 let score = 0;
-let operand1_max = 99;
-let operand2_max = 99;
+let operand1_max;
+let operand2_max;
 const TIME_SECONDS = 60;
 const COUNT_IN_SECONDS = 3;
 let operations = new Array;
@@ -94,9 +95,10 @@ function start_game()
 // Generate a random question
 function make_question()
 {
+    operation = operations[Math.floor(Math.random()*(operations.length))]; 
     operand1 = Math.floor(Math.random()*operand1_max);
     operand2 = Math.floor(Math.random()*operand2_max);
-    question.innerHTML = String(operand1) + " + " + String(operand2) + " = ";
+    question.innerHTML = String(operand1) + " " + (operation === "addition" ? "+" : operation === "subtraction" ? "-" : "x") + " " + String(operand2) + " = ";
     response.value = "";
 }
 
@@ -106,7 +108,7 @@ function check_answer(event)
     if (event.key == "Enter")
     {
         // When the correct answer is entered
-        if ((operand1 + operand2) === Number(response.value))
+        if (operate(operand1, operand2, operation) === Number(response.value))
         {
             // Tell user the answer is correct, and increment score
             play_sound(correct_sound);
@@ -270,6 +272,20 @@ function set_difficulty(difficulty)
             operand1_max = 99;
             operand2_max = 99;
             break;
+    }
+}
+
+// Perform calculation on the operands with the given operation, and return the result
+function operate(operand1, operand2, operation)
+{
+    switch (operation)
+    {
+        case "addition":
+            return operand1 + operand2;
+        case "subtraction":
+            return operand1 - operand2;
+        case "multiplication":
+            return operand1 * operand2;
     }
 }
 
