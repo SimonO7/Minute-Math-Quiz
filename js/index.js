@@ -1,15 +1,15 @@
 // Javascript file for Minute Math Quiz
 
 // Global variables
-let operand1 = 0;
-let operand2 = 0;
+let operand1;
+let operand2;
 let operation;
-let score = 0;
 let operand1_max;
 let operand2_max;
+let operations_selected;
+let score = 0;
 const TIME_SECONDS = 60;
 const COUNT_IN_SECONDS = 3;
-let operations = new Array;
 
 // Fields for use by the functions
 const score_display = document.querySelector(".score_display");
@@ -27,11 +27,21 @@ const correct_sound = new Audio("sounds/correct.mp3");
 const wrong_sound = new Audio("sounds/wrong.mp3");
 const alarm_sound = new Audio("sounds/alarm.mp3");
 
-// Main function to load on page load
-function main()
+// Add event listeners to the menu buttons
+function add_listeners()
 {
-    add_listeners();
-    load_menu();
+    // When start button is clcked
+    document.querySelector("#start").addEventListener("click", start_game);
+
+    // Event listener for play again button
+    play_again_btn.addEventListener("click", load_menu);
+
+    // Add listener to remove the shake class from the response field after each shake, 
+    // so it can be applied again on the next answer
+    // https://teamtreehouse.com/community/shake-effect-with-javascript-only
+    response.addEventListener("animationend", (e) => {
+        response.classList.remove("shake_element");
+    });
 }
 
 // Load the main menu
@@ -69,8 +79,34 @@ function count_in(seconds=3)
     }, seconds*1000);
 }
 
-// Set up the game after player presses start
+// Function to load game. To run when the Start button is pressed
 function start_game()
+{
+    // Check which operations are enabled
+    operations = get_operations();
+    if (operations.length == 0)
+    {
+        alert("You must select at least one operation!")
+        return;
+    }
+
+    // Check which level is selected
+    const level_checked = document.querySelector('input[name="level"]:checked');
+    if (level_checked == null)
+    {
+        alert("You must select a level!")
+        return;
+    }
+    set_difficulty(level_checked.value);
+
+    question.removeAttribute("hidden");
+    question.innerHTML = "Ready?";
+    count_in(COUNT_IN_SECONDS);
+    setTimeout(load_game_area, (COUNT_IN_SECONDS+1)*1000);
+}
+
+// Set up the game after player presses start
+function load_game_area()
 {
     // Listen for enter key
     document.addEventListener("keydown", check_answer);
@@ -95,9 +131,12 @@ function start_game()
 // Generate a random question
 function make_question()
 {
+    // Choose random number for the operands and operation, within the level and operatiosns chosen by player
     operation = operations[Math.floor(Math.random()*(operations.length))]; 
     operand1 = Math.floor(Math.random()*operand1_max);
     operand2 = Math.floor(Math.random()*operand2_max);
+
+    // Display the new question, and clear the old response value
     question.innerHTML = String(operand1) + " " + (operation === "addition" ? "+" : operation === "subtraction" ? "-" : "x") + " " + String(operand2) + " = ";
     response.value = "";
 }
@@ -187,7 +226,7 @@ function game_over_screen()
     // Play the game over sound
     play_sound(alarm_sound);
 
-    // Display final score
+    // Display final score and the play again button
     result_title.removeAttribute("hidden");
     question.setAttribute("hidden", "");
     response.setAttribute("hidden", "");
@@ -196,63 +235,17 @@ function game_over_screen()
     play_again_btn.removeAttribute("hidden");
 }
 
-// Add event listeners to the menu buttons
-function add_listeners()
-{
-    // When start button is clcked
-    document.querySelector("#start").addEventListener("click", load_game);
-
-    // Event listener for play again button
-    play_again_btn.addEventListener("click", load_menu);
-
-    // Add listener to remove the shake class from the response field after each shake, 
-    // so it can be applied again on the next answer
-    // https://teamtreehouse.com/community/shake-effect-with-javascript-only
-    response.addEventListener("animationend", (e) => {
-        response.classList.remove("shake_element");
-    });
-}
-
 // Get the operations the user has selected, and returns it in an array
 function get_operations()
 {
-    const temp = new Array();
-    const operations_selected = document.querySelectorAll("input[type=checkbox]");
+    const operations = document.querySelectorAll("input[type=checkbox]");
     for (let i = 0; i < operations_selected.length; i++)
     {
-        if (operations_selected[i].checked)
+        if (operations[i].checked)
         {
-            temp.push(operations_selected[i].id);
+            operations_selected.push(operations[i].id);
         }
     }
-
-    return temp;
-}
-
-// Function to load game. To run when the Start button is pressed
-function load_game()
-{
-    // Check which operations are enabled
-    operations = get_operations();
-    if (operations.length == 0)
-    {
-        alert("You must select at least one operation!")
-        return;
-    }
-
-    // Check which level is selected
-    const level_checked = document.querySelector('input[name="level"]:checked');
-    if (level_checked == null)
-    {
-        alert("You must select a level!")
-        return;
-    }
-    set_difficulty(level_checked.value);
-
-    question.removeAttribute("hidden");
-    question.innerHTML = "Ready?";
-    count_in(COUNT_IN_SECONDS);
-    setTimeout(start_game, (COUNT_IN_SECONDS+1)*1000);
 }
 
 // Set the max allowed value for each operand based on selected difficulty
@@ -289,4 +282,5 @@ function operate(operand1, operand2, operation)
     }
 }
 
-main();
+add_listeners();
+load_menu();
