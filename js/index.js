@@ -4,6 +4,8 @@
 let operand1 = 0;
 let operand2 = 0;
 let score = 0;
+let operand1_max = 99;
+let operand2_max = 99;
 const TIME_SECONDS = 60;
 const COUNT_IN_SECONDS = 3;
 let operations = new Array;
@@ -92,8 +94,8 @@ function start_game()
 // Generate a random question
 function make_question()
 {
-    operand1 = Math.floor(Math.random()*9)+1;
-    operand2 = Math.floor(Math.random()*9)+1;
+    operand1 = Math.floor(Math.random()*operand1_max);
+    operand2 = Math.floor(Math.random()*operand2_max);
     question.innerHTML = String(operand1) + " + " + String(operand2) + " = ";
     response.value = "";
 }
@@ -235,10 +237,40 @@ function load_game()
         alert("You must select at least one operation!")
         return;
     }
+
+    // Check which level is selected
+    const level_checked = document.querySelector('input[name="level"]:checked');
+    if (level_checked == null)
+    {
+        alert("You must select a level!")
+        return;
+    }
+    set_difficulty(level_checked.value);
+
     question.removeAttribute("hidden");
     question.innerHTML = "Ready?";
     count_in(COUNT_IN_SECONDS);
     setTimeout(start_game, (COUNT_IN_SECONDS+1)*1000);
+}
+
+// Set the max allowed value for each operand based on selected difficulty
+function set_difficulty(difficulty)
+{
+    switch (difficulty)
+    {
+        case "easy":
+            operand1_max = 9;
+            operand2_max = 9;
+            break;
+        case "medium":
+            operand1_max = 99;
+            operand2_max = 9;
+            break;
+        case "hard":
+            operand1_max = 99;
+            operand2_max = 99;
+            break;
+    }
 }
 
 main();
