@@ -7,9 +7,10 @@ let operation;
 let score = 0;
 let operand1_max;
 let operand2_max;
+let operations = new Array;
+let level;
 const TIME_SECONDS = 60;
 const COUNT_IN_SECONDS = 3;
-let operations = new Array;
 
 // Fields for use by the functions
 const score_display = document.querySelector(".score_display");
@@ -46,7 +47,6 @@ function load_menu()
     score_display.innerHTML = String(score);
     response.style.border = "3px solid black";
     timer_display.innerHTML = "1:00";
-
 }
 
 // Countdown to game start after user clicks start. Default is 3 seconds.
@@ -97,13 +97,50 @@ function load_game_area()
     response.focus();
 }
 
+// Function to load game. To run when the Start button is pressed
+function start_game()
+{
+    // Check which operations are enabled
+    operations = get_operations();
+    if (operations.length == 0)
+    {
+        alert("You must select at least one operation!")
+        return;
+    }
+
+    // Check which level is selected
+    const level_checked = document.querySelector('input[name="level"]:checked');
+    if (level_checked == null)
+    {
+        alert("You must select a level!")
+        return;
+    }
+    set_difficulty(level_checked.value);
+
+    question.removeAttribute("hidden");
+    question.innerHTML = "Ready?";
+    count_in(COUNT_IN_SECONDS);
+    setTimeout(load_game_area, (COUNT_IN_SECONDS+1)*1000);
+}
+
 // Generate a random question
 function make_question()
 {
     // Get a random operation from the chosen operatioons, and choose a random number up to maximum defined bny the difficulty
-    operation = operations[Math.floor(Math.random()*(operations.length))]; 
-    operand1 = Math.floor(Math.random()*operand1_max);
-    operand2 = Math.floor(Math.random()*operand2_max);
+    operation = operations[Math.floor(Math.random()*(operations.length))];
+    
+    // For medium difficulty, either operand can be the double digit number
+    if (level === "medium" && Math.random() < 0.5)
+    {
+        operand1 = Math.floor(Math.random()*operand2_max)+1;
+        operand2 = Math.floor(Math.random()*operand1_max)+1; 
+    }
+
+    else
+    {
+        operand1 = Math.floor(Math.random()*operand1_max)+1;
+        operand2 = Math.floor(Math.random()*operand2_max)+1;
+    }
 
     // Show the question to the player
     question.innerHTML = String(operand1) + " " + (operation === "addition" ? "+" : operation === "subtraction" ? "-" : "x") + " " + String(operand2) + " = ";
@@ -223,32 +260,6 @@ function get_operations()
     return ops;
 }
 
-// Function to load game. To run when the Start button is pressed
-function start_game()
-{
-    // Check which operations are enabled
-    operations = get_operations();
-    if (operations.length == 0)
-    {
-        alert("You must select at least one operation!")
-        return;
-    }
-
-    // Check which level is selected
-    const level_checked = document.querySelector('input[name="level"]:checked');
-    if (level_checked == null)
-    {
-        alert("You must select a level!")
-        return;
-    }
-    set_difficulty(level_checked.value);
-
-    question.removeAttribute("hidden");
-    question.innerHTML = "Ready?";
-    count_in(COUNT_IN_SECONDS);
-    setTimeout(load_game_area, (COUNT_IN_SECONDS+1)*1000);
-}
-
 // Set the max allowed value for each operand based on selected difficulty
 function set_difficulty(difficulty)
 {
@@ -257,14 +268,17 @@ function set_difficulty(difficulty)
         case "easy":
             operand1_max = 9;
             operand2_max = 9;
+            level = "easy";
             break;
         case "medium":
             operand1_max = 99;
             operand2_max = 9;
+            level = "medium";
             break;
         case "hard":
             operand1_max = 99;
             operand2_max = 99;
+            level = "hard";
             break;
     }
 }
