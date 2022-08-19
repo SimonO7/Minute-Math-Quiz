@@ -88,8 +88,8 @@ function load_game_area()
     // Set the timer for the game over screen to appear
     setTimeout(game_over_screen, TIME_SECONDS*1000);
 
-    // Start the countdown 500ms after hitting start, to let user get aware the game has started
-    countdown(TIME_SECONDS, 500);
+    // Start the countdown 1 second after hitting start, to let user react to game started
+    countdown(TIME_SECONDS, 1000);
 
     // Set up the game area
     result.removeAttribute("hidden");
@@ -131,8 +131,8 @@ function make_question()
     // Get a random operation from the chosen operatioons, and choose a random number up to maximum defined bny the difficulty
     operation = operations[Math.floor(Math.random()*(operations.length))];
     
-    // For medium difficulty, either operand can be the double digit number
-    if (level === "medium" && Math.random() < 0.5)
+    // For intermediate difficulty, either operand can be the double digit number
+    if (level === "intermediate" && Math.random() < 0.5)
     {
         operand1 = Math.floor(Math.random()*operand2_max)+1;
         operand2 = Math.floor(Math.random()*operand1_max)+1; 
@@ -273,10 +273,10 @@ function set_difficulty(difficulty)
             operand2_max = 9;
             level = "easy";
             break;
-        case "medium":
+        case "intermediate":
             operand1_max = 99;
             operand2_max = 9;
-            level = "medium";
+            level = "intermediate";
             break;
         case "hard":
             operand1_max = 99;
