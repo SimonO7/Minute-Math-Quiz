@@ -84,13 +84,7 @@ function load_game_area()
     document.addEventListener("keydown", check_answer);
 
     // Add event listener for skip button
-    skip_btn.addEventListener("click", () => {
-        response.style.border = "3px solid black";
-        result.innerHTML = "";
-        score -= 1;
-        score_display.innerHTML = String(score);
-        make_question();
-    });
+    skip_btn.addEventListener("click", skip_question);
     
     // Generate a new question
     make_question();
@@ -310,6 +304,16 @@ function operate(operand1, operand2, operation)
         case "multiplication":
             return operand1 * operand2;
     }
+}
+
+// Skip a question at the cost of 1 point deduct from score
+function skip_question()
+{
+    response.style.border = "3px solid black";
+    result.innerHTML = "";
+    score -= 1;
+    score_display.innerHTML = String(score);
+    make_question();
 }
 
 load_menu();
