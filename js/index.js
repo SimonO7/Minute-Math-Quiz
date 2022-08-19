@@ -27,6 +27,7 @@ const result_title = document.querySelector(".result_text");
 const correct_sound = new Audio("sounds/correct.mp3");
 const wrong_sound = new Audio("sounds/wrong.mp3");
 const alarm_sound = new Audio("sounds/alarm.mp3");
+const countdown_sound = new Audio("sounds/countdown.mp3");
 
 // Load the main menu
 function load_menu()
@@ -56,6 +57,7 @@ function count_in(seconds=3)
     menu.setAttribute("hidden", "");
 
     let num = seconds
+    setTimeout(() => play_sound(countdown_sound), 1000);
     let countinstart = setInterval(() => {
         question.innerHTML = String(num);
         num--;
@@ -233,6 +235,7 @@ function game_over_screen()
     play_sound(alarm_sound);
 
     // Display final score
+    result_title.innerHTML = "TIMES UP!"
     result_title.removeAttribute("hidden");
     question.setAttribute("hidden", "");
     response.setAttribute("hidden", "");
