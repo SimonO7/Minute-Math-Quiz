@@ -11,7 +11,7 @@ The goal of this game is simple: answer as many randomly generated math question
 ### How to play:
 1. Choose the operations and level of difficulty.
 2. Press Start.
-3. Answer the math question on the screen! Press <Enter> to submit the answer. The answer may be a positive or negative integer (so no decimals).
+3. Answer the math question on the screen! Press Enter to submit the answer. The answer may be a positive or negative integer (so no decimals).
 4. If the answer is correct, a new question will appear.
 5. If the answer is incorrect, you have to answer it again correctly before you can move to next question.
 
@@ -27,10 +27,9 @@ There are 3 levels of difficulty:
 - Hard: double digits (1-99) by double digits (1-99)
 
 #### Operations
-Currently, only addition, subtraction, and multiplication questions are supported. Division isn't implemented right now because that would require additional logic to handle remainders.
+Currently, only addition, subtraction, and multiplication questions are supported.
 
-The player may choose which of the 3 types operations will appear in the questions, and can enable/disable as they wish.
-For example, if the player wishes to only do addition questions, they can turn off subtraction and multiplication questions before starting the game.
+You may choose which of the 3 types operations will appear in the questions, and can enable/disable as you wish. For example, if you want to only do addition questions, you can turn off subtraction and multiplication questions from the options screen before starting the game.
 
 
 
