@@ -87,12 +87,13 @@ function load_game_area()
     skip_btn.addEventListener("click", () => {
         response.style.border = "3px solid black";
         result.innerHTML = "";
+        score--;
+        score_display.innerHTML = String(score);
         make_question();
     });
     
     // Generate a new question
     make_question();
-
 
     // Start the countdown 1 second after hitting start, to let user react to game started
     countdown(1000);
@@ -243,7 +244,14 @@ function game_over_screen()
     question.setAttribute("hidden", "");
     response.setAttribute("hidden", "");
     skip_btn.setAttribute("hidden", "");
-    result.style.color = "green";
+    if (score > 0)
+    {
+        result.style.color = "green";
+    }
+    else
+    {
+        result.style.color = "red";
+    }
     result.innerHTML = "Your score is: " + String(score);
 
     // Add listener for play again button and show it
