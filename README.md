@@ -11,7 +11,7 @@ The goal of this game is simple: answer as many randomly generated math question
 ### How to play:
 1. Choose the operations and level of difficulty.
 2. Press Start.
-3. Answer the math question on the screen! Press Enter to submit the answer. The answer may be a positive or negative integer (so no decimals).
+3. Answer the math question on the screen! Press Enter to submit the answer. The answer may be a positive or negative integer (no decimal numbers or fractions).
 4. If the answer is correct, a new question will appear.
 5. If the answer is incorrect, you have to answer it again correctly before you can move to next question.
 
