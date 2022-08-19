@@ -41,8 +41,3 @@ You may choose which of the 3 types operations will appear in the questions, and
 - styles/styles.css: main stylesheet for index.html
 - js/index.js: main Javascript file. Contains all the logic for the game.
 - sounds/*.mp3: MP3 sound files for the game sounds.
-
-
-
-
-
