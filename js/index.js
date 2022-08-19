@@ -22,6 +22,7 @@ const response = document.querySelector(".response");
 const result = document.querySelector(".result");
 const play_again_btn = document.querySelector("#play_again");
 const result_title = document.querySelector(".result_text");
+const skip_btn = document.querySelector("#skip");
 
 // Sound effects
 const correct_sound = new Audio("sounds/correct.mp3");
@@ -82,6 +83,13 @@ function load_game_area()
     // Listen for enter key
     document.addEventListener("keydown", check_answer);
 
+    // Add event listener for skip button
+    skip_btn.addEventListener("click", () => {
+        response.style.border = "3px solid black";
+        result.innerHTML = "";
+        make_question();
+    });
+    
     // Generate a new question
     make_question();
 
@@ -95,7 +103,7 @@ function load_game_area()
     result.removeAttribute("hidden");
     response.removeAttribute("hidden");
 
-    // Focus the cursor on the input field
+    // Focus the cursor to the text box
     response.focus();
 }
 
@@ -147,6 +155,8 @@ function make_question()
     // Show the question to the player
     question.innerHTML = String(operand1) + " " + (operation === "addition" ? "+" : operation === "subtraction" ? "-" : "x") + " " + String(operand2) + " = ";
     response.value = "";
+    skip_btn.setAttribute("hidden", "");
+    response.focus();
 }
 
 // Check answer when Enter key is pressed
@@ -183,6 +193,9 @@ function check_answer(event)
             response.style.border = "3px solid red";
             result.style.color = "red";
             result.textContent = "Incorrect. Try again!";
+
+            // Show a skip button
+            skip_btn.removeAttribute("hidden");
         }
     }
 }
@@ -239,6 +252,7 @@ function game_over_screen()
     result_title.removeAttribute("hidden");
     question.setAttribute("hidden", "");
     response.setAttribute("hidden", "");
+    skip_btn.setAttribute("hidden", "");
     result.style.color = "green";
     result.innerHTML = "Your score is: " + String(score);
 
