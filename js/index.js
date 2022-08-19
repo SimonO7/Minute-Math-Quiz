@@ -93,11 +93,9 @@ function load_game_area()
     // Generate a new question
     make_question();
 
-    // Set the timer for the game over screen to appear
-    setTimeout(game_over_screen, TIME_SECONDS*1000);
 
     // Start the countdown 1 second after hitting start, to let user react to game started
-    countdown(TIME_SECONDS, 1000);
+    countdown(1000);
 
     // Set up the game area
     result.removeAttribute("hidden");
@@ -200,31 +198,23 @@ function check_answer(event)
     }
 }
 
-// Countdown timer, modified version of the countdown timer by adhithyan15 on Github:
-// https://gist.github.com/adhithyan15/4350689
-function countdown(time, delay) 
+// 1 minute countdown timer, after which the end screen appears
+// https://codepen.io/masudrana2779/details/GRqzPdZ
+function countdown(delay) 
 { 
     setTimeout(function() {
-        let seconds = 60;
-        let mins = time / 60;
+        var seconds = 60;
         function tick() {
-            let counter = document.querySelector(".timer_display");
-            let current_minutes = mins-1
+            var counter = document.querySelector(".timer_display");
             seconds--;
-            counter.innerHTML = current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+            counter.innerHTML = "0:" + (seconds < 10 ? "0" : "") + String(seconds);
             if (seconds > 0) 
             {
                 setTimeout(tick, 1000);
             } 
             else 
             {
-                setTimeout(function()
-                {
-                    if (mins > 1)
-                    {
-                        countdown(mins-1);
-                    }
-                }, 1000);
+                game_over_screen();
             }
         }
         tick();
