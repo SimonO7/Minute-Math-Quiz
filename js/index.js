@@ -87,7 +87,7 @@ function load_game_area()
     skip_btn.addEventListener("click", () => {
         response.style.border = "3px solid black";
         result.innerHTML = "";
-        score--;
+        score -= 1;
         score_display.innerHTML = String(score);
         make_question();
     });
@@ -164,14 +164,14 @@ function check_answer(event)
     if (event.key == "Enter")
     {
         // When the correct answer is entered
-        if (operate(operand1, operand2, operation) === Number(response.value))
+        if (response.value.length > 0 && operate(operand1, operand2, operation) === Number(response.value))
         {
             // Tell user the answer is correct, and increment score
             play_sound(correct_sound);
             response.style.border = "3px solid green";
             result.innerHTML = "Correct!";
             result.style.color = "green"
-            score++;
+            score += 1;
             score_display.innerHTML = String(score);
 
             // After 300 ms, clear the result message and generate next question
