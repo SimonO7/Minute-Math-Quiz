@@ -1,7 +1,7 @@
 # Minute Math Quiz
 
 ### Video Demo:
-Coming soon!
+https://youtu.be/HRt-C1HFUdU
 
 ### Description:
 A math quiz game created with Javascript, based on a math quiz called Hot pencils or Mad Minute, used by many elementary school teachers for teaching students typically in grades 1-5 to build basic math knowledge.
