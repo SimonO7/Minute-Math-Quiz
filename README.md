@@ -4,9 +4,7 @@
 https://youtu.be/g09e1biivY4
 
 ### Description:
-A math quiz game created with Javascript, based on a math quiz called Hot pencils or Mad Minute, used by many elementary school teachers for teaching students typically in grades 1-5 to build basic math knowledge.
-
-The goal of this game is simple: answer as many randomly generated math questions correctly as you can in one minute.
+A math quiz game created with Javascript. It is inspired from a math quiz called Hot pencils or Mad Minute, used by many elementary school teachers for teaching students basically math knowlesge, typically in grades 1-5. The goal of this game is to answer as many simple math questions correctly as you can within one minute, without assistance from electronic devices like calculators. This game is all about training your mental math skills!
 
 ### How to play:
 1. Choose the operations and level of difficulty.
